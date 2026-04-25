@@ -1,9 +1,11 @@
 // 1. Define helper functions first
 export const getToday = () => new Date().toISOString().split('T')[0];
 
+const NumDaysValid = 30;
+
 export const getValidUntil = () => {
     const date = new Date();
-    date.setDate(date.getDate() + 30);
+    date.setDate(date.getDate() + NumDaysValid);
     return date.toISOString().split('T')[0];
 };
 
@@ -58,5 +60,5 @@ export const defaultValues = {
         logo_url: "", 
         signature_url: ""
     },
-    options: [{ ...defaultOption, option_name: "Option 1" }]
+    options: [{ ...defaultOption, option_name: "" }]
 };
