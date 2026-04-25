@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useSubmit = (wasmStatus) => {
+export const useSubmit = ( wasmStatus ) => {
   const [outputLog, setOutputLog] = useState('');
 
   const onSubmit = async (data) => {
@@ -36,8 +36,19 @@ export const useSubmit = (wasmStatus) => {
         } else {
           throw new Error("Unexpected response format from WASM");
         }
-        
+
         const url = URL.createObjectURL(blob);
+
+        const leadName = data.lead_info.name || 'Document';
+        const today = new Date().toISOString().split('T')[0];
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `Quotation_${leadName}_${today}.pdf`; // Name of the file
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); // Clean up the DOM
+        
         window.open(url, '_blank');
         setOutputLog("PDF Ready.");
       } else {
