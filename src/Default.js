@@ -57,8 +57,8 @@ export const defaultValues = {
         name: "Sarah Jenkins", 
         phone_number: "+60123456789", 
         email: "sarah@apex.com", 
-        logo_url: "https://dummyimage.com/150x50/000/fff&text=AGENCY+LOGO", 
-        signature_url: "https://dummyimage.com/200x80/ffffff/000000&text=My++Signature+Here"
+        logo_url: "", 
+        signature_url: ""
     },
     options: [{ ...defaultOption, option_name: "" }]
 };
