@@ -55,7 +55,7 @@ const FurnishingPackage = ({ register, control, index }) => {
               type="number"
               min="0"
               {...register(`options.${index}.furnishing.${item}`, { valueAsNumber: true })}
-              className="w-10 text-center text-l font-bold py-0.5 focus:outline-none appearance-none"
+              className="w-12 text-center text-l font-bold py-0.5 focus:outline-none appearance-none"
             />
           </div>
         </div>
