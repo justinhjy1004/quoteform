@@ -1,9 +1,27 @@
 import React from 'react';
 import { layoutTypes } from '../Default';
 
-const ProjectSpecificsSection = ({ register, watch }) => {
+const ProjectSpecificsSection = ({ register, watch, setValue }) => {
 
     const projectDetails = watch("project_details") || {};
+    const layoutData = {
+        "Type A": { area: 850, psf: 0.35 },
+        "Type B": { area: 1000, psf: 0.35 },
+        "Type C": { area: 1200, psf: 0.40 }
+    };
+
+    const handleLayoutChange = (e) => {
+        const selectedLayout = e.target.value;
+        const data = layoutData[selectedLayout];
+
+        if (data) {
+            setValue("project_details.area_sqft", data.area);
+            setValue("legal_and_fees.maintenance_fee_psf", data.psf);
+            setValue("legal_and_fees.maintenance_fee_total", data.area * data.psf);
+        }
+    };
+    
+    const layoutRegister = register("project_details.layout_type");
 
     return (
         <section>
@@ -11,8 +29,16 @@ const ProjectSpecificsSection = ({ register, watch }) => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label className="block text-l font-medium">Layout Type</label>
-                    <select {...register("project_details.layout_type")} className="w-full mt-1 p-2 border rounded">
-                        <option value="">Select Layout Type</option>
+                       <select
+                            name={layoutRegister.name}
+                            ref={layoutRegister.ref}
+                            onBlur={layoutRegister.onBlur}
+                            onChange={(e) => {
+                                layoutRegister.onChange(e); // Sync with Form State
+                                handleLayoutChange(e);      // Trigger Population
+                            }}
+                            className="w-full mt-1 p-2 border rounded"
+                        >                        <option value="">Select Layout Type</option>
                         {layoutTypes.map((type) => (
                             <option key={type} value={type}>{type}</option>
                         ))}

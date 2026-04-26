@@ -20,7 +20,7 @@ export default function App() {
 
   const { onSubmit, outputLog } = useSubmit(wasmStatus);
 
-  const { register, control, handleSubmit, watch } = useForm({
+  const { register, control, handleSubmit, watch, setValue } = useForm({
     defaultValues: defaultValues
   });
 
@@ -56,7 +56,7 @@ export default function App() {
           <GeneralInformationSection register={register} />
 
           {/* Project Specifics */}
-          <ProjectSpecificsSection register={register} watch={watch} />
+          <ProjectSpecificsSection register={register} watch={watch} setValue={setValue} />
 
           {/* Options Section */}
           <OptionsSection register={register} control={control} activeTab={activeTab} setActiveTab={setActiveTab} optionFields={optionFields} addOption={addOption} removeOption={removeOption} optionsWatcher={optionsWatcher} />
