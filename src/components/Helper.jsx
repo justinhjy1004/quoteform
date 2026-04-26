@@ -44,3 +44,11 @@ export const parseNumber = (value) => {
   }
   return clean;
 };
+
+export const toPureNumber = (value) => {
+  if (typeof value === 'number') return value;
+  if (!value) return 0;
+  const cleanString = value.toString().replace(/,/g, '');
+  const num = parseFloat(cleanString);
+  return isNaN(num) ? 0 : num;
+};
