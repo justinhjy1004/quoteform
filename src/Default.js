@@ -43,12 +43,12 @@ export const defaultValues = {
     project_details: {
         project_name: "Skyline Residences", 
         developer: "Apex Development Group", 
-        tenure: "",
+        tenure: "Freehold",
         unit_no: "", 
         facing: "", layout_type: "", area_sqft: 0, spa_price: 0
     },
     legal_and_fees: {
-        maintenance_fee_psf: 0, 
+        maintenance_fee_psf: 0.35, 
         maintenance_fee_total: 0, 
         included: [], 
         not_included: []

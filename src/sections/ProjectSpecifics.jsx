@@ -30,11 +30,11 @@ const ProjectSpecificsSection = ({ register, watch }) => {
                 </div>
                 <div>
                     <label className="block text-l font-medium">Area (Sqft)</label>
-                    <input type="number" {...register("project_details.area_sqft", { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+                    <input type="number" {...register("project_details.area_sqft", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
                 </div>
                 <div>
                     <label className="block text-l font-medium">SPA Price</label>
-                    <input type="number" step="100" {...register("project_details.spa_price", { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+                    <input type="number" step="100" {...register("project_details.spa_price", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
                 </div>
             </div>
         </section>

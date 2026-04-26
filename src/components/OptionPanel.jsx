@@ -9,7 +9,7 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
     <div>
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-xl font-medium text-gray-700">Other Discounts</h3>
-        <button type="button" onClick={() => addDiscount({ type: '', amount: 0 })} className="text-l bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded transition">
+        <button type="button" onClick={() => addDiscount({ type: '', amount: 0 })} className="text-l bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded transition-all">
           + Add Discount
         </button>
       </div>
@@ -17,7 +17,7 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
         {discountFields.map((item, dIndex) => (
           <div key={item.id} className="flex gap-2 items-center">
             <input type="text" placeholder="Type" {...register(`options.${index}.other_discounts.${dIndex}.type`)} className="flex-grow p-1 border rounded text-xl" />
-            <input type="number" step="0.01" placeholder="Amount" {...register(`options.${index}.other_discounts.${dIndex}.amount`, { valueAsNumber: true })} className="w-32 p-1 border rounded text-l" />
+            <input type="number" step="0.01" placeholder="Amount" {...register(`options.${index}.other_discounts.${dIndex}.amount`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-32 p-1 border rounded text-l" />
             <button type="button" onClick={() => removeDiscount(dIndex)} className="text-red-500 hover:bg-red-50 rounded px-2 py-1 font-bold transition">
               &times;
             </button>
@@ -54,6 +54,7 @@ const FurnishingPackage = ({ register, control, index }) => {
             <input
               type="number"
               min="0"
+              onFocus={(e) => e.target.select()}
               {...register(`options.${index}.furnishing.${item}`, { valueAsNumber: true })}
               className="w-12 text-center text-l font-bold py-0.5 focus:outline-none appearance-none"
             />
@@ -99,37 +100,46 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
         <div>
           <label className="block text-l font-medium">Rebate Amount</label>
-          <input type="number" step="100" {...register(`options.${index}.rebate`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+          <input
+            type="number"
+            step="100"
+            {...register(`options.${index}.rebate`, { valueAsNumber: true })}
+            onFocus={(e) => e.target.select()}
+            className="w-full mt-1 p-2 border rounded"
+          />
         </div>
         <div>
-          <label className="block text-l font-medium">Cashback</label>
-          <input type="number" step="100" {...register(`options.${index}.cashback`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+          <label className="block text-l font-medium">Cashback Amount</label>
+          <input type="number" step="100" {...register(`options.${index}.cashback`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
-        <div>
+      </div>
+
+      <DiscountAdder index={index} addDiscount={addDiscount} register={register} removeDiscount={removeDiscount} discountFields={discountFields} />
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="md:col-span-2">
           <label className="block text-l font-medium">Down Payment</label>
-          <input type="number" step="100" {...register(`options.${index}.down_payment`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="100" {...register(`options.${index}.down_payment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
-        <div>
+        <div className="md:col-span-2">
           <label className="block text-l font-medium font-bold">Nett Price</label>
-          <input type="number" step="100" {...register(`options.${index}.nett_price`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-50" />
+          <input type="number" step="100" {...register(`options.${index}.nett_price`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-50" />
         </div>
-        <div>
+        <div className="md:col-span-2">
           <label className="block text-l font-medium">Loan Amount</label>
-          <input type="number" step="100" {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="100" {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
-        <div>
+        <div className="md:col-span-2">
           <label className="block text-l font-medium">Interest Rate (%)</label>
-          <input type="number" step="0.1" {...register(`options.${index}.interest_rate`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="0.1" {...register(`options.${index}.interest_rate`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
-        <div>
+        <div className="md:col-span-2">
           <label className="block text-l font-medium">Monthly Instalment</label>
-          <input type="number" step="100" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="100" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
       </div>
 
       <hr className="border-gray-200" />
-
-      <DiscountAdder index={index} addDiscount={addDiscount} register={register} removeDiscount={removeDiscount} discountFields={discountFields} />
 
       <hr className="border-gray-200" />
 
