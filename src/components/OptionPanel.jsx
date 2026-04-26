@@ -111,11 +111,11 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
         <div>
           <label className="block text-l font-medium font-bold">Nett Price</label>
-          <input type="number" step="100" {...register(`options.${index}.nett_price`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-50" />
+          <input type="number" step="100" {...register(`options.${index}.nett_price`, { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-100 cursor-not-allowed" />
         </div>
         <div>
           <label className="block text-l font-medium">Loan Amount</label>
-          <input type="number" step="100" {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="100" {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
         </div>
         <div>
           <label className="block text-l font-medium">Interest Rate (%)</label>
@@ -123,7 +123,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
         <div>
           <label className="block text-l font-medium">Monthly Instalment</label>
-          <input type="number" step="100" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="100" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
         </div>
       </div>
 

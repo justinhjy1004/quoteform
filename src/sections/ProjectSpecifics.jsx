@@ -56,7 +56,7 @@ const ProjectSpecificsSection = ({ register, watch, setValue }) => {
                 </div>
                 <div>
                     <label className="block text-l font-medium">Area (Sqft)</label>
-                    <input type="number" {...register("project_details.area_sqft", { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+                    <input type="number" {...register("project_details.area_sqft", { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
                 </div>
                 <div>
                     <label className="block text-l font-medium">SPA Price</label>

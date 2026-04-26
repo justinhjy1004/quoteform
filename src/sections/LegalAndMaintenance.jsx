@@ -9,11 +9,11 @@ const LegalAndMaintenanceSection = ({ register, control }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-l font-medium">Maintenance Fee (PSF)</label>
-                <input type="number" step="0.1" {...register("legal_and_fees.maintenance_fee_psf", { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+                <input type="number" step="0.1" {...register("legal_and_fees.maintenance_fee_psf", { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
               </div>
               <div>
                 <label className="block text-l font-medium">Maintenance Fee (Total)</label>
-                <input type="number" step="10" {...register("legal_and_fees.maintenance_fee_total", { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+                <input type="number" step="10" {...register("legal_and_fees.maintenance_fee_total", { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
               </div>
             </div>
             
