@@ -42,6 +42,7 @@ export default function App() {
         {/* Header */}
         <div className="bg-blue-400 px-6 py-4 flex justify-between items-center">
           <h1 className="text-xl font-bold text-white">{defaultValues.project_details.project_name} by {defaultValues.project_details.developer}</h1>
+          <h3 className="text-sm text-white">{defaultValues.project_details.tenure}</h3>
           <br />
           <h2 className="text-l font-bold text-white">{defaultValues.agent.name}</h2>
         </div>
@@ -56,11 +57,12 @@ export default function App() {
           {/* Project Specifics */}
           <ProjectSpecificsSection register={register} watch={watch} />
 
-          {/* Legal & Maintenance Fees */}
-          <LegalAndMaintenanceSection register={register} control={control} />
 
           {/* Options Section */}
           <OptionsSection register={register} control={control} activeTab={activeTab} setActiveTab={setActiveTab} optionFields={optionFields} addOption={addOption} removeOption={removeOption} optionsWatcher={optionsWatcher} />
+
+          {/* Legal & Maintenance Fees */}
+          <LegalAndMaintenanceSection register={register} control={control} />
 
           {/* Submission Button */}
           <GenerateQuoteButton onSubmit={onSubmit} wasmStatus={wasmStatus} />
