@@ -42,7 +42,7 @@ const StatusToggle = ({ label, name, register }) => (
 
 const LegalAndMaintenanceSection = ({ register, watch, setValue }) => {
 
-  const watchedPrice = watch("project_detail.spa_price");
+  const watchedPrice = watch("project_details.spa_price");
   const watchedCitizenship = watch("lead_info.citizenship");
 
   useEffect(() => {
