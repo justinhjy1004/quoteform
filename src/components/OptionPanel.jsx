@@ -93,7 +93,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div className="md:col-span-4">
           <label className="block text-l font-medium">Option Name</label>
           <input type="text" {...register(`options.${index}.option_name`)} className="w-full mt-1 p-2 border rounded font-semibold" />
