@@ -8,8 +8,6 @@ export const getValidUntil = () => {
 };
 const NumDaysValid = 30;
 
-
-
 // 2. Define the small building blocks
 export const defaultOption = {
     option_name: "New Option",

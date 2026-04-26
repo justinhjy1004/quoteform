@@ -39,7 +39,7 @@ const StatusToggle = ({ label, name, register }) => (
   </div>
 );
 
-const LegalAndMaintenanceSection = ({ register, control }) => {
+const LegalAndMaintenanceSection = ({ register, control, watch }) => {
 
   return (<section>
     <h2 className="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">Legal & Maintenance Fees</h2>

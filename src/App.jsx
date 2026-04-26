@@ -62,7 +62,7 @@ export default function App() {
           <OptionsSection register={register} control={control} activeTab={activeTab} setActiveTab={setActiveTab} optionFields={optionFields} addOption={addOption} removeOption={removeOption} optionsWatcher={optionsWatcher} />
 
           {/* Legal & Maintenance Fees */}
-          <LegalAndMaintenanceSection register={register} control={control} />
+          {/*<LegalAndMaintenanceSection register={register} control={control} watch={watch} setValue={setValue} />*/}
 
           {/* Submission Button */}
           <GenerateQuoteButton onSubmit={onSubmit} wasmStatus={wasmStatus} />

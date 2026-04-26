@@ -67,10 +67,14 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
 
 const FurnishingPackage = ({ register, control, index }) => {
 
+  const furnish_items = ['kitchen_cabinet', 'hood_and_hob', 'fridge', 'toilet', 'heater', 'shower_screen', 'bathroom_accessories', 'light_fixtures']
+
+  const furnish_item_quantity = ['washing_machine_qty', 'airconds_qty', 'wardrobe_qty', 'bed_set_qty']
+
   return (<div>
     <h3 className="font-medium text-gray-700 mb-3 text-xl">Furnishing Package</h3>
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-      {['kitchen_cabinet', 'hood_and_hob', 'fridge', 'toilet', 'heater', 'shower_screen'].map((item) => (
+      {furnish_items.map((item) => (
         <label key={item} className="flex items-center space-x-2 cursor-pointer">
           <input type="checkbox" {...register(`options.${index}.furnishing.${item}`)} className="rounded text-blue-600 focus:ring-blue-500" />
           <span className="text-l capitalize">{item.replace(/_/g, ' ')}</span>
@@ -78,7 +82,7 @@ const FurnishingPackage = ({ register, control, index }) => {
       ))}
     </div>
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-      {['washing_machine_qty', 'airconds_qty', 'wardrobe_qty', 'bed_set_qty'].map((item) => (
+      {furnish_item_quantity.map((item) => (
         <div
           key={item}
           className="flex items-center justify-between bg-gray-100 p-1.5 px-3 rounded-full border border-gray-200 hover:bg-white hover:shadow-sm transition-all"
