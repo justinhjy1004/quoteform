@@ -217,11 +217,11 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Loan Amount</label>
-          <input type="number" step="1" {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" readOnly {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium font-bold">Nett Price</label>
-          <input type="number" step="1" {...register(`options.${index}.nett_price`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-50" />
+          <input type="number" step="1" readOnly {...register(`options.${index}.nett_price`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Interest Rate (%)</label>
@@ -233,7 +233,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Monthly Instalment</label>
-          <input type="number" step=".01" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" readOnly step=".01" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"/>
         </div>
       </div>
 
