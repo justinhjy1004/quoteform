@@ -2,44 +2,74 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import TagInput from "../components/TagInput";
 
-const LegalAndMaintenanceSection = ({ register, control }) => {
+const StatusToggle = ({ label, name, register }) => (
+  <div className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg transition-colors">
+    <label className="text-sm font-bold text-gray-700">{label}</label>
+    <div className="inline-flex p-1 bg-gray-100 rounded-lg border border-gray-200">
+      {/* FREE Option */}
+      <label className="relative">
+        <input
+          type="radio"
+          value="free"
+          {...register(name)}
+          className="peer sr-only"
+        />
+        <div className="px-4 py-1.5 rounded-md cursor-pointer transition-all 
+          peer-checked:bg-white peer-checked:text-green-600 peer-checked:shadow-sm 
+          text-gray-500 hover:text-gray-700 font-medium text-xs">
+          FREE
+        </div>
+      </label>
 
-    return (<section>
-            <h2 className="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">Legal & Maintenance Fees</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-l font-medium">Maintenance Fee (PSF)</label>
-                <input type="number" step="0.1" {...register("legal_and_fees.maintenance_fee_psf", { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
-              </div>
-              <div>
-                <label className="block text-l font-medium">Maintenance Fee (Total)</label>
-                <input type="number" step="10" {...register("legal_and_fees.maintenance_fee_total", { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
-              </div>
-            </div>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-l font-medium mb-1">Included Fees (Type and Press Enter)</label>
-                <Controller
-                  control={control}
-                  name="legal_and_fees.included"
-                  render={({ field: { value, onChange } }) => (
-                    <TagInput value={value} onChange={onChange} />
-                  )}
-                />
-              </div>
-              <div>
-                <label className="block text-l font-medium mb-1">Not Included Fees (Type and Press Enter)</label>
-                <Controller
-                  control={control}
-                  name="legal_and_fees.not_included"
-                  render={({ field: { value, onChange } }) => (
-                    <TagInput value={value} onChange={onChange} />
-                  )}
-                />
-              </div>
-            </div>
-          </section>);
+      {/* NOT INCLUDED Option */}
+      <label className="relative">
+        <input
+          type="radio"
+          value="not_included"
+          {...register(name)}
+          className="peer sr-only"
+        />
+        <div className="px-4 py-1.5 rounded-md cursor-pointer transition-all 
+          peer-checked:bg-white peer-checked:text-red-600 peer-checked:shadow-sm 
+          text-gray-500 hover:text-gray-700 font-medium text-xs">
+          NOT INCLUDED
+        </div>
+      </label>
+    </div>
+  </div>
+);
+
+const LegalAndMaintenanceSection = ({ register, control, watch }) => {
+
+  return (<section>
+    <h2 className="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">Legal & Maintenance Fees</h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div>
+        <label className="block text-l font-medium">Maintenance Fee (PSF)</label>
+        <input type="number" step="0.01" {...register("legal_and_fees.maintenance_fee_psf", { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
+      </div>
+      <div>
+        <label className="block text-l font-medium">Maintenance Fee (Total)</label>
+        <input type="number" step="10" {...register("legal_and_fees.maintenance_fee_total", { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-4">
+      <div>
+        <label className="block text-l font-medium">MOT Stamp Duty</label>
+        <input type="number" {...register("legal_and_fees.mot", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+      </div>
+    </div>
+
+    {/* TODO: CHANGE THIS LATER */}
+    <StatusToggle label="SPA Legal Fee" name="legal_and_fees.spa_legal" register={register} />
+    <StatusToggle label="SPA Disbursement Fees" name="legal_and_fees.spa_disbursement" register={register} />
+    <StatusToggle label="Loan Agreement Fee" name="legal_and_fees.load_agreement" register={register} />
+    <StatusToggle label="Loan Disbursement Fee" name="legal_and_fees.loan_disbursement" register={register} />
+    <StatusToggle label="Loan Stamp Duty" name="legal_and_fees.loan_stamp_duty" register={register} />
+
+  </section>);
 };
 
 export default LegalAndMaintenanceSection;

@@ -1,13 +1,12 @@
 // 1. Define helper functions first
 export const getToday = () => new Date().toISOString().split('T')[0];
 
-const NumDaysValid = 30;
-
 export const getValidUntil = () => {
     const date = new Date();
     date.setDate(date.getDate() + NumDaysValid);
     return date.toISOString().split('T')[0];
 };
+const NumDaysValid = 30;
 
 // 2. Define the small building blocks
 export const defaultOption = {
@@ -43,12 +42,12 @@ export const defaultValues = {
     project_details: {
         project_name: "Skyline Residences", 
         developer: "Apex Development Group", 
-        tenure: "",
+        tenure: "Freehold",
         unit_no: "", 
-        facing: "", layout_type: "", area_sqft: 0, spa_price: 0
+        facing: "", layout_type: "", area_sqft: 0, spa_price: 0, car_park_lot: ""
     },
     legal_and_fees: {
-        maintenance_fee_psf: 0, 
+        maintenance_fee_psf: 0.35, 
         maintenance_fee_total: 0, 
         included: [], 
         not_included: []
@@ -62,3 +61,5 @@ export const defaultValues = {
     },
     options: [{ ...defaultOption, option_name: "" }]
 };
+
+export const layoutTypes = ["Type A", "Type B", "Type C"]; 

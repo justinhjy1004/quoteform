@@ -1,8 +1,7 @@
 import React from 'react';
+import { layoutTypes } from '../Default';
 
 const ProjectSpecificsSection = ({ register, watch, setValue }) => {
-
-    const layoutTypes = ["Type A", "Type B", "Type C"]; 
 
     const projectDetails = watch("project_details") || {};
     const layoutData = {
@@ -59,8 +58,12 @@ const ProjectSpecificsSection = ({ register, watch, setValue }) => {
                     <input type="number" {...register("project_details.area_sqft", { valueAsNumber: true })} readOnly className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
                 </div>
                 <div>
+                    <label className="block text-l font-medium">Car Park Lot</label>
+                    <input type="text" {...register("project_details.car_park_lot")} className="w-full mt-1 p-2 border rounded" />
+                </div>
+                <div>
                     <label className="block text-l font-medium">SPA Price</label>
-                    <input type="number" step="100" {...register("project_details.spa_price", { valueAsNumber: true })} className="w-full mt-1 p-2 border rounded" />
+                    <input type="number" step="100" {...register("project_details.spa_price", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
                 </div>
             </div>
         </section>
