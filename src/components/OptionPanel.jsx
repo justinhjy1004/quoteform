@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useFieldArray, Controller } from 'react-hook-form';
-
 import TagInput from './TagInput';
 
 const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountFields }) => {

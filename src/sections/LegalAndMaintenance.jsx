@@ -39,7 +39,7 @@ const StatusToggle = ({ label, name, register }) => (
   </div>
 );
 
-const LegalAndMaintenanceSection = ({ register, control, watch }) => {
+const LegalAndMaintenanceSection = ({ register, control }) => {
 
   return (<section>
     <h2 className="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">Legal & Maintenance Fees</h2>
@@ -51,7 +51,7 @@ const LegalAndMaintenanceSection = ({ register, control, watch }) => {
       </div>
       <div>
         <label className="block text-l font-medium">Maintenance Fee (Total)</label>
-        <input type="number" step="10" {...register("legal_and_fees.maintenance_fee_total", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+        <input type="number" {...register("legal_and_fees.maintenance_fee_total", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
       </div>
     </div>
 
@@ -65,7 +65,7 @@ const LegalAndMaintenanceSection = ({ register, control, watch }) => {
     {/* TODO: CHANGE THIS LATER */}
     <StatusToggle label="SPA Legal Fee" name="legal_and_fees.spa_legal" register={register} />
     <StatusToggle label="SPA Disbursement Fees" name="legal_and_fees.spa_disbursement" register={register} />
-    <StatusToggle label="Loan Agreement Fee" name="legal_and_fees.load_agreement" register={register} />
+    <StatusToggle label="Loan Agreement Fee" name="legal_and_fees.loan_agreement" register={register} />
     <StatusToggle label="Loan Disbursement Fee" name="legal_and_fees.loan_disbursement" register={register} />
     <StatusToggle label="Loan Stamp Duty" name="legal_and_fees.loan_stamp_duty" register={register} />
 
