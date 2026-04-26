@@ -33,6 +33,10 @@ const ProjectSpecificsSection = ({ register, watch }) => {
                     <input type="number" {...register("project_details.area_sqft", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
                 </div>
                 <div>
+                    <label className="block text-l font-medium">Car Park Lot</label>
+                    <input type="text" {...register("project_details.car_park_lot")} className="w-full mt-1 p-2 border rounded" />
+                </div>
+                <div>
                     <label className="block text-l font-medium">SPA Price</label>
                     <input type="number" step="100" {...register("project_details.spa_price", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
                 </div>

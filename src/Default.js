@@ -45,7 +45,7 @@ export const defaultValues = {
         developer: "Apex Development Group", 
         tenure: "Freehold",
         unit_no: "", 
-        facing: "", layout_type: "", area_sqft: 0, spa_price: 0
+        facing: "", layout_type: "", area_sqft: 0, spa_price: 0, car_park_lot: ""
     },
     legal_and_fees: {
         maintenance_fee_psf: 0.35, 

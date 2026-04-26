@@ -98,7 +98,10 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
           <label className="block text-l font-medium">Option Name</label>
           <input type="text" {...register(`options.${index}.option_name`)} className="w-full mt-1 p-2 border rounded font-semibold" />
         </div>
-        <div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="md:col-span-2">
           <label className="block text-l font-medium">Rebate Amount</label>
           <input
             type="number"
@@ -108,7 +111,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
             className="w-full mt-1 p-2 border rounded"
           />
         </div>
-        <div>
+        <div className="md:col-span-2">
           <label className="block text-l font-medium">Cashback Amount</label>
           <input type="number" step="100" {...register(`options.${index}.cashback`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
