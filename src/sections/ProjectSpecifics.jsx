@@ -1,8 +1,7 @@
 import React from 'react';
+import { layoutTypes } from '../Default';
 
 const ProjectSpecificsSection = ({ register, watch }) => {
-
-    const layoutTypes = ["Type A", "Type B", "Type C"]; 
 
     const projectDetails = watch("project_details") || {};
 

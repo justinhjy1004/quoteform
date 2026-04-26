@@ -1,13 +1,14 @@
 // 1. Define helper functions first
 export const getToday = () => new Date().toISOString().split('T')[0];
 
-const NumDaysValid = 30;
-
 export const getValidUntil = () => {
     const date = new Date();
     date.setDate(date.getDate() + NumDaysValid);
     return date.toISOString().split('T')[0];
 };
+const NumDaysValid = 30;
+
+
 
 // 2. Define the small building blocks
 export const defaultOption = {
@@ -62,3 +63,5 @@ export const defaultValues = {
     },
     options: [{ ...defaultOption, option_name: "" }]
 };
+
+export const layoutTypes = ["Type A", "Type B", "Type C"]; 

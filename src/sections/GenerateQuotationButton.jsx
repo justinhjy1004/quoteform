@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GenerateQuoteButton = ( { onSubmit, wasmStatus } ) => {
+const GenerateQuoteButton = ({ onSubmit, wasmStatus }) => {
     return (<div className="pt-6">
         <button
             type="submit"

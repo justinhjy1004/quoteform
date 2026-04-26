@@ -63,11 +63,11 @@ const LegalAndMaintenanceSection = ({ register, control }) => {
     </div>
 
     {/* TODO: CHANGE THIS LATER */}
-    <StatusToggle label="SPA Legal Fee" name="legal_and_fees.maintenance_status" register={register} />
-    <StatusToggle label="SPA Disbursement Fees" name="legal_and_fees.legal_status" register={register} />
-    <StatusToggle label="Loan Agreement Fee" name="legal_and_fees.stamp_status" register={register} />
-    <StatusToggle label="Loan Disbursement Fee" name="legal_and_fees.parking_status" register={register} />
-    <StatusToggle label="Loan Stamp Duty" name="legal_and_fees.valuation_status" register={register} />
+    <StatusToggle label="SPA Legal Fee" name="legal_and_fees.spa_legal" register={register} />
+    <StatusToggle label="SPA Disbursement Fees" name="legal_and_fees.spa_disbursement" register={register} />
+    <StatusToggle label="Loan Agreement Fee" name="legal_and_fees.load_agreement" register={register} />
+    <StatusToggle label="Loan Disbursement Fee" name="legal_and_fees.loan_disbursement" register={register} />
+    <StatusToggle label="Loan Stamp Duty" name="legal_and_fees.loan_stamp_duty" register={register} />
 
   </section>);
 };

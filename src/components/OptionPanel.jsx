@@ -4,28 +4,65 @@ import { useFieldArray, Controller } from 'react-hook-form';
 import TagInput from './TagInput';
 
 const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountFields }) => {
-
   return (
     <div>
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-3">
         <h3 className="text-xl font-medium text-gray-700">Other Discounts</h3>
-        <button type="button" onClick={() => addDiscount({ type: '', amount: 0 })} className="text-l bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded transition-all">
+        <button 
+          type="button" 
+          onClick={() => addDiscount({ type: '', amount: 0 })} 
+          className="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1.5 rounded transition-all font-medium"
+        >
           + Add Discount
         </button>
       </div>
+      
       <div className="space-y-2">
         {discountFields.map((item, dIndex) => (
           <div key={item.id} className="flex gap-2 items-center">
-            <input type="text" placeholder="Type" {...register(`options.${index}.other_discounts.${dIndex}.type`)} className="flex-grow p-1 border rounded text-xl" />
-            <input type="number" step="0.01" placeholder="Amount" {...register(`options.${index}.other_discounts.${dIndex}.amount`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-32 p-1 border rounded text-l" />
-            <button type="button" onClick={() => removeDiscount(dIndex)} className="text-red-500 hover:bg-red-50 rounded px-2 py-1 font-bold transition">
+            {/* Type Input */}
+            <input 
+              type="text" 
+              placeholder="Discount Name (e.g., Seasonal)" 
+              {...register(`options.${index}.other_discounts.${dIndex}.type`)} 
+              className="flex-grow p-2 border rounded text-base focus:ring-2 focus:ring-blue-100 outline-none" 
+            />
+            
+            {/* Percentage Input with '%' Adornment */}
+            <div className="relative w-32">
+              <input 
+                type="number" 
+                step="0.01" 
+                min="0"
+                max="100"
+                placeholder="0.00" 
+                {...register(`options.${index}.other_discounts.${dIndex}.amount`, { valueAsNumber: true })} 
+                onFocus={(e) => e.target.select()} 
+                className="w-full p-2 pr-7 border rounded text-base focus:ring-2 focus:ring-blue-100 outline-none text-right" 
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium select-none pointer-events-none">
+                %
+              </span>
+            </div>
+
+            {/* Remove Button */}
+            <button 
+              type="button" 
+              onClick={() => removeDiscount(dIndex)} 
+              className="text-red-500 hover:bg-red-50 rounded px-2 py-1.5 font-bold transition flex-shrink-0"
+              aria-label="Remove discount"
+            >
               &times;
             </button>
           </div>
         ))}
-        {discountFields.length === 0 && <p className="text-m text-gray-400 italic">No extra discounts applied.</p>}
+        
+        {discountFields.length === 0 && (
+          <p className="text-sm text-gray-400 italic">No extra percentage discounts applied.</p>
+        )}
       </div>
-    </div>);
+    </div>
+  );
 };
 
 const FurnishingPackage = ({ register, control, index }) => {
@@ -145,7 +182,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
               />
               <div className="px-4 py-1.5 rounded-md cursor-pointer transition-all 
         peer-checked:bg-white peer-checked:text-red-600 peer-checked:shadow-sm 
-        text-gray-500 hover:text-gray-700 font-medium text-xs whitespace-nowrap">
+        text-gray-500 hover:text-gray-700 font-medium text-m whitespace-nowrap">
                 Cash Out
               </div>
             </label>
@@ -160,7 +197,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
               />
               <div className="px-4 py-1.5 rounded-md cursor-pointer transition-all 
         peer-checked:bg-white peer-checked:text-green-600 peer-checked:shadow-sm 
-        text-gray-500 hover:text-gray-700 font-medium text-xs whitespace-nowrap">
+        text-gray-500 hover:text-gray-700 font-medium text-m whitespace-nowrap">
                 Offset to Loan
               </div>
             </label>
@@ -189,7 +226,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
          <div className="md:col-span-2">
           <label className="block text-l font-medium">Loan Tenure (Year)</label>
-          <input type="number"  {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="1" {...register(`options.${index}.loan_tenure_year`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Monthly Instalment</label>
