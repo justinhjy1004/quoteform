@@ -1,7 +1,9 @@
 import React from 'react';
+import { Controller } from 'react-hook-form';
 import { layoutTypes } from '../Default';
+import { formatNumber, parseNumber } from '../components/Helper';
 
-const ProjectSpecificsSection = ({ register, watch, setValue }) => {
+const ProjectSpecificsSection = ({ register, watch, setValue, control }) => {
 
     const projectDetails = watch("project_details") || {};
     const layoutData = {
@@ -55,7 +57,21 @@ const ProjectSpecificsSection = ({ register, watch, setValue }) => {
                 </div>
                 <div>
                     <label className="block text-l font-medium">Area (Sqft)</label>
-                    <input type="number" readOnly {...register("project_details.area_sqft", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
+                    <Controller
+                        name="project_details.area_sqft"
+                        control={control}
+                        render={({ field: { value, onChange, onBlur } }) => (
+                            <input
+                                type="text"
+                                value={formatNumber(value)}
+                                onChange={(e) => onChange(parseNumber(e.target.value))}
+                                onBlur={onBlur}
+                                onFocus={(e) => e.target.select()}
+                                readOnly
+                                className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"
+                            />
+                        )}
+                    />
                 </div>
                 <div>
                     <label className="block text-l font-medium">Car Park Lot</label>
@@ -63,7 +79,20 @@ const ProjectSpecificsSection = ({ register, watch, setValue }) => {
                 </div>
                 <div>
                     <label className="block text-l font-medium">SPA Price</label>
-                    <input type="number" step="100" {...register("project_details.spa_price", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+                    <Controller
+                        name="project_details.spa_price"
+                        control={control}
+                        render={({ field: { value, onChange, onBlur } }) => (
+                            <input
+                                type="text"
+                                value={formatNumber(value)}
+                                onChange={(e) => onChange(parseNumber(e.target.value))}
+                                onBlur={onBlur}
+                                onFocus={(e) => e.target.select()}
+                                className="w-full mt-1 p-2 border rounded"
+                            />
+                        )}
+                    />
                 </div>
             </div>
         </section>

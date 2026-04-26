@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import TagInput from "../components/TagInput";
-import { calculateMOT } from "../components/Helper"
+import { calculateMOT, formatNumber, parseNumber } from "../components/Helper"
 
 const StatusToggle = ({ label, name, register }) => (
   <div className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg transition-colors">
@@ -40,7 +40,7 @@ const StatusToggle = ({ label, name, register }) => (
   </div>
 );
 
-const LegalAndMaintenanceSection = ({ register, watch, setValue }) => {
+const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
 
   const watchedPrice = watch("project_details.spa_price");
   const watchedCitizenship = watch("lead_info.citizenship");
@@ -71,18 +71,59 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div>
         <label className="block text-l font-medium">Maintenance Fee (PSF)</label>
-        <input type="number" step="0.01" readOnly {...register("legal_and_fees.maintenance_fee_psf", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
+        <Controller
+          name="legal_and_fees.maintenance_fee_psf"
+          control={control}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <input
+              type="text"
+              value={formatNumber(value)}
+              onChange={(e) => onChange(parseNumber(e.target.value))}
+              onBlur={onBlur}
+              onFocus={(e) => e.target.select()}
+              readOnly
+              className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"
+            />
+          )}
+        />
       </div>
       <div>
         <label className="block text-l font-medium">Maintenance Fee (Total)</label>
-        <input type="number" readOnly {...register("legal_and_fees.maintenance_fee_total", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
+        <Controller
+          name="legal_and_fees.maintenance_fee_total"
+          control={control}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <input
+              type="text"
+              value={formatNumber(value)}
+              onChange={(e) => onChange(parseNumber(e.target.value))}
+              onBlur={onBlur}
+              onFocus={(e) => e.target.select()}
+              readOnly
+              className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"
+            />
+          )}
+        />
       </div>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-4">
       <div>
         <label className="block text-l font-medium">MOT Stamp Duty</label>
-        <input type="number" {...register("legal_and_fees.mot", { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+        <Controller
+          name="legal_and_fees.mot"
+          control={control}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <input
+              type="text"
+              value={formatNumber(value)}
+              onChange={(e) => onChange(parseNumber(e.target.value))}
+              onBlur={onBlur}
+              onFocus={(e) => e.target.select()}
+              className="w-full mt-1 p-2 border rounded"
+            />
+          )}
+        />
       </div>
     </div>
 

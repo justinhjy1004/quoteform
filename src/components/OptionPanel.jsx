@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFieldArray, Controller } from 'react-hook-form';
 import TagInput from './TagInput';
+import { formatNumber, parseNumber } from './Helper';
 
 const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountFields }) => {
   return (
@@ -153,24 +154,38 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Rebate Amount</label>
-          <input
-            type="number"
-            step="0.01"
-            {...register(`options.${index}.rebate_amount`, { valueAsNumber: true })}
-            onFocus={(e) => e.target.select()}
-            className="w-full mt-1 p-2 border rounded"
+          <Controller
+            name={`options.${index}.rebate_amount`}
+            control={control}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <input
+                type="text"
+                value={formatNumber(value)}
+                onChange={(e) => onChange(parseNumber(e.target.value))}
+                onBlur={onBlur}
+                onFocus={(e) => e.target.select()}
+                className="w-full mt-1 p-2 border rounded"
+              />
+            )}
           />
         </div>
         {/* Combined Cashback & Radio Row */}
         <div className="md:col-span-4 flex flex-col md:flex-row md:items-end gap-4">
           <div className="flex-grow">
             <label className="block text-l font-medium">Cashback</label>
-            <input
-              type="number"
-              step="1"
-              {...register(`options.${index}.cashback`, { valueAsNumber: true })}
-              onFocus={(e) => e.target.select()}
-              className="w-full mt-1 p-2 border rounded"
+            <Controller
+              name={`options.${index}.cashback`}
+              control={control}
+              render={({ field: { value, onChange, onBlur } }) => (
+                <input
+                  type="text"
+                  value={formatNumber(value)}
+                  onChange={(e) => onChange(parseNumber(e.target.value))}
+                  onBlur={onBlur}
+                  onFocus={(e) => e.target.select()}
+                  className="w-full mt-1 p-2 border rounded"
+                />
+              )}
             />
           </div>
 
@@ -213,15 +228,56 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Down Payment</label>
-          <input type="number" step="1" {...register(`options.${index}.down_payment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <Controller
+            name={`options.${index}.down_payment`}
+            control={control}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <input
+                type="text"
+                value={formatNumber(value)}
+                onChange={(e) => onChange(parseNumber(e.target.value))}
+                onBlur={onBlur}
+                onFocus={(e) => e.target.select()}
+                className="w-full mt-1 p-2 border rounded"
+              />
+            )}
+          />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Loan Amount</label>
-          <input type="number" readOnly {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
+          <Controller
+            name={`options.${index}.loan_amount`}
+            control={control}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <input
+                type="text"
+                value={formatNumber(value)}
+                onChange={(e) => onChange(parseNumber(e.target.value))}
+                onBlur={onBlur}
+                onFocus={(e) => e.target.select()}
+                readOnly
+                className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"
+              />
+            )}
+          />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium font-bold">Nett Price</label>
-          <input type="number" step="1" readOnly {...register(`options.${index}.nett_price`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed" />
+          <Controller
+            name={`options.${index}.nett_price`}
+            control={control}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <input
+                type="text"
+                value={formatNumber(value)}
+                onChange={(e) => onChange(parseNumber(e.target.value))}
+                onBlur={onBlur}
+                onFocus={(e) => e.target.select()}
+                readOnly
+                className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-100 cursor-not-allowed"
+              />
+            )}
+          />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Interest Rate (%)</label>
@@ -233,7 +289,21 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Monthly Instalment</label>
-          <input type="number" readOnly step=".01" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"/>
+          <Controller
+            name={`options.${index}.monthly_instalment`}
+            control={control}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <input
+                type="text"
+                value={formatNumber(value)}
+                onChange={(e) => onChange(parseNumber(e.target.value))}
+                onBlur={onBlur}
+                onFocus={(e) => e.target.select()}
+                readOnly
+                className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"
+              />
+            )}
+          />
         </div>
       </div>
 
