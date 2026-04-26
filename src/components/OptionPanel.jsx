@@ -102,43 +102,98 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="md:col-span-2">
-          <label className="block text-l font-medium">Rebate Amount</label>
+          <label className="block text-l font-medium">Rebate (%)</label>
           <input
             type="number"
-            step="100"
-            {...register(`options.${index}.rebate`, { valueAsNumber: true })}
+            step="0.01"
+            {...register(`options.${index}.rebate_percentage`, { valueAsNumber: true })}
             onFocus={(e) => e.target.select()}
             className="w-full mt-1 p-2 border rounded"
           />
         </div>
         <div className="md:col-span-2">
-          <label className="block text-l font-medium">Cashback Amount</label>
-          <input type="number" step="100" {...register(`options.${index}.cashback`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <label className="block text-l font-medium">Rebate Amount</label>
+          <input
+            type="number"
+            step="0.01"
+            {...register(`options.${index}.rebate_amount`, { valueAsNumber: true })}
+            onFocus={(e) => e.target.select()}
+            className="w-full mt-1 p-2 border rounded"
+          />
+        </div>
+        {/* Combined Cashback & Radio Row */}
+        <div className="md:col-span-4 flex flex-col md:flex-row md:items-end gap-4">
+          <div className="flex-grow">
+            <label className="block text-l font-medium">Cashback</label>
+            <input
+              type="number"
+              step="1"
+              {...register(`options.${index}.cashback`, { valueAsNumber: true })}
+              onFocus={(e) => e.target.select()}
+              className="w-full mt-1 p-2 border rounded"
+            />
+          </div>
+
+          <div className="flex items-center bg-gray-100 p-1 rounded-lg h-[42px]"> {/* Match height of input approx */}
+            {/* FREE Option */}
+            <label className="relative flex-1">
+              <input
+                type="radio"
+                value="free"
+                {...register(`options.${index}.cashback_type`)} // Adjusted name to match your nesting pattern
+                className="peer sr-only"
+              />
+              <div className="px-4 py-1.5 rounded-md cursor-pointer transition-all 
+        peer-checked:bg-white peer-checked:text-red-600 peer-checked:shadow-sm 
+        text-gray-500 hover:text-gray-700 font-medium text-xs whitespace-nowrap">
+                Cash Out
+              </div>
+            </label>
+
+            {/* NOT INCLUDED Option */}
+            <label className="relative flex-1">
+              <input
+                type="radio"
+                value="not_included"
+                {...register(`options.${index}.cashback_type`)} // Adjusted name to match your nesting pattern
+                className="peer sr-only"
+              />
+              <div className="px-4 py-1.5 rounded-md cursor-pointer transition-all 
+        peer-checked:bg-white peer-checked:text-green-600 peer-checked:shadow-sm 
+        text-gray-500 hover:text-gray-700 font-medium text-xs whitespace-nowrap">
+                Offset to Loan
+              </div>
+            </label>
+          </div>
         </div>
       </div>
 
       <DiscountAdder index={index} addDiscount={addDiscount} register={register} removeDiscount={removeDiscount} discountFields={discountFields} />
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Down Payment</label>
-          <input type="number" step="100" {...register(`options.${index}.down_payment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
-        </div>
-        <div className="md:col-span-2">
-          <label className="block text-l font-medium font-bold">Nett Price</label>
-          <input type="number" step="100" {...register(`options.${index}.nett_price`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-50" />
+          <input type="number" step="1" {...register(`options.${index}.down_payment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Loan Amount</label>
-          <input type="number" step="100" {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="1" {...register(`options.${index}.loan_amount`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+        </div>
+        <div className="md:col-span-2">
+          <label className="block text-l font-medium font-bold">Nett Price</label>
+          <input type="number" step="1" {...register(`options.${index}.nett_price`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-50" />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Interest Rate (%)</label>
           <input type="number" step="0.1" {...register(`options.${index}.interest_rate`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
+         <div className="md:col-span-2">
+          <label className="block text-l font-medium">Loan Tenure (Year)</label>
+          <input type="number"  {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+        </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Monthly Instalment</label>
-          <input type="number" step="100" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step=".01" {...register(`options.${index}.monthly_instalment`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
       </div>
 
