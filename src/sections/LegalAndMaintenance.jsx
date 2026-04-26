@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import TagInput from "../components/TagInput";
+import { calculateMOT } from "../components/Helper"
 
 const StatusToggle = ({ label, name, register }) => (
   <div className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg transition-colors">
@@ -39,7 +40,30 @@ const StatusToggle = ({ label, name, register }) => (
   </div>
 );
 
-const LegalAndMaintenanceSection = ({ register, control }) => {
+const LegalAndMaintenanceSection = ({ register, watch, setValue }) => {
+
+  const watchedPrice = watch("project_detail.spa_price");
+  const watchedCitizenship = watch("lead_info.citizenship");
+
+  useEffect(() => {
+    // 1. Sanitize the price input in case it comes through as a formatted string with commas
+    const rawPrice = typeof watchedPrice === 'string' ? watchedPrice.replace(/,/g, '') : watchedPrice;
+    const price = parseFloat(rawPrice) || 0;
+    
+    // 2. Ensure calculateMOT has a fallback so it never returns undefined or NaN
+    const calculatedAmount = calculateMOT(price, watchedCitizenship) || 0;
+
+    // Optional: Uncomment this to debug if the hook is firing properly
+    console.log("Price:", price, "Citizenship:", watchedCitizenship, "Calculated MOT:", calculatedAmount);
+
+    // 3. Add the options object to setValue to force the UI and form state to sync
+    setValue("legal_and_fees.mot", calculatedAmount, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true
+    });
+    
+  }, [watchedPrice, watchedCitizenship, setValue]);
 
   return (<section>
     <h2 className="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">Legal & Maintenance Fees</h2>

@@ -34,7 +34,7 @@ const GeneralInformationSection = ({ register }) => {
                         <label className="relative flex-1">
                             <input
                                 type="radio"
-                                value="malaysian"
+                                value="Malaysian"
                                 defaultChecked
                                 {...register("lead_info.citizenship")}
                                 className="peer sr-only"
@@ -50,7 +50,7 @@ const GeneralInformationSection = ({ register }) => {
                         <label className="relative flex-1">
                             <input
                                 type="radio"
-                                value="non-malaysian"
+                                value="Non-Malaysian"
                                 {...register("lead_info.citizenship")}
                                 className="peer sr-only"
                             />

@@ -38,7 +38,7 @@ export const defaultOption = {
 export const defaultValues = {
     appointment_date: getToday(), // Now this works!
     quotation_validity: getValidUntil(),
-    lead_info: { name: "", contact: "" },
+    lead_info: { name: "", contact: "", citizenship: "Malaysian" },
     project_details: {
         project_name: "Skyline Residences", 
         developer: "Apex Development Group", 
