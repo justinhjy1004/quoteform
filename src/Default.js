@@ -62,4 +62,8 @@ export const defaultValues = {
     options: [{ ...defaultOption, option_name: "" }]
 };
 
-export const layoutTypes = ["Type A", "Type B", "Type C"]; 
+export const layoutData = {
+        "Type A": { area: 850, psf: 0.35 },
+        "Type B": { area: 1000, psf: 0.35 },
+        "Type C": { area: 1200, psf: 0.40 }
+};

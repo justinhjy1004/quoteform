@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFieldArray, Controller } from 'react-hook-form';
 import TagInput from './TagInput';
-import { formatNumber, parseNumber } from './Helper';
+import { formatNumber, parseNumber, revertToNumeric } from './Helper';
 
 const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountFields }) => {
   return (
@@ -162,7 +162,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
                 type="text"
                 value={formatNumber(value)}
                 onChange={(e) => onChange(parseNumber(e.target.value))}
-                onBlur={onBlur}
+                onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
                 onFocus={(e) => e.target.select()}
                 className="w-full mt-1 p-2 border rounded"
               />
@@ -181,7 +181,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
                   type="text"
                   value={formatNumber(value)}
                   onChange={(e) => onChange(parseNumber(e.target.value))}
-                  onBlur={onBlur}
+                  onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
                   onFocus={(e) => e.target.select()}
                   className="w-full mt-1 p-2 border rounded"
                 />
@@ -236,7 +236,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
                 type="text"
                 value={formatNumber(value)}
                 onChange={(e) => onChange(parseNumber(e.target.value))}
-                onBlur={onBlur}
+                onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
                 onFocus={(e) => e.target.select()}
                 className="w-full mt-1 p-2 border rounded"
               />
@@ -253,7 +253,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
                 type="text"
                 value={formatNumber(value)}
                 onChange={(e) => onChange(parseNumber(e.target.value))}
-                onBlur={onBlur}
+                onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
                 onFocus={(e) => e.target.select()}
                 readOnly
                 className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"
@@ -271,7 +271,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
                 type="text"
                 value={formatNumber(value)}
                 onChange={(e) => onChange(parseNumber(e.target.value))}
-                onBlur={onBlur}
+                onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
                 onFocus={(e) => e.target.select()}
                 readOnly
                 className="w-full mt-1 p-2 border rounded border-gray-400 bg-gray-100 cursor-not-allowed"
@@ -297,7 +297,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
                 type="text"
                 value={formatNumber(value)}
                 onChange={(e) => onChange(parseNumber(e.target.value))}
-                onBlur={onBlur}
+                onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
                 onFocus={(e) => e.target.select()}
                 readOnly
                 className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"

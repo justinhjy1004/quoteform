@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import TagInput from "../components/TagInput";
-import { calculateMOT, formatNumber, parseNumber } from "../components/Helper"
+import { calculateMOT, formatNumber, parseNumber, revertToNumeric } from "../components/Helper"
 
 const StatusToggle = ({ label, name, register }) => (
   <div className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg transition-colors">
@@ -79,7 +79,7 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
               type="text"
               value={formatNumber(value)}
               onChange={(e) => onChange(parseNumber(e.target.value))}
-              onBlur={onBlur}
+              onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
               onFocus={(e) => e.target.select()}
               readOnly
               className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"
@@ -97,7 +97,7 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
               type="text"
               value={formatNumber(value)}
               onChange={(e) => onChange(parseNumber(e.target.value))}
-              onBlur={onBlur}
+              onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
               onFocus={(e) => e.target.select()}
               readOnly
               className="w-full mt-1 p-2 border rounded bg-gray-100 cursor-not-allowed"
@@ -118,7 +118,7 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
               type="text"
               value={formatNumber(value)}
               onChange={(e) => onChange(parseNumber(e.target.value))}
-              onBlur={onBlur}
+              onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
               onFocus={(e) => e.target.select()}
               className="w-full mt-1 p-2 border rounded"
             />

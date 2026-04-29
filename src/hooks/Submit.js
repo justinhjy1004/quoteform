@@ -48,8 +48,7 @@ export const useSubmit = ( wasmStatus ) => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link); // Clean up the DOM
-        
-        window.open(url, '_blank');
+
         setOutputLog("PDF Ready.");
       } else {
         setOutputLog("Simulation only: window.generatePDF is not defined.");
