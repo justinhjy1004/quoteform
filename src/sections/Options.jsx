@@ -2,7 +2,7 @@ import React from 'react';
 import OptionPanel from '../components/OptionPanel';
 import { defaultOption } from "../Default";
 
-const OptionsSection = ( {register, control, activeTab, setActiveTab, optionFields, addOption, removeOption, optionsWatcher }) => {
+const OptionsSection = ( {register, control, activeTab, setActiveTab, optionFields, addOption, removeOption, optionsWatcher, setValue }) => {
     return (<section className="border rounded-lg overflow-hidden border-blue-200">
             <div className="bg-blue-50 px-4 py-3 flex items-center justify-between border-b border-blue-200">
               <h2 className="text-lg font-semibold text-blue-800">Quotation Options</h2>
@@ -46,7 +46,8 @@ const OptionsSection = ( {register, control, activeTab, setActiveTab, optionFiel
                     removeOption={(idx) => {
                       removeOption(idx);
                       setActiveTab(Math.max(0, idx - 1));
-                    }} 
+                    }}
+                    setValue={setValue}
                   />
                 </div>
               ))}

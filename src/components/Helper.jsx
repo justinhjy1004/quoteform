@@ -62,3 +62,25 @@ export const parseNumber = (value) => {
   }
   return clean;
 };
+
+export const getNumeric = (value) => {
+  value = parseNumber(value);
+  value = parseFloat(value);
+  return value;
+};  
+
+export function calculateMonthlyInstalment(spaPrice, annualRate, loanTenure) {
+    const monthlyRate = annualRate / 12;
+    const totalPayments = loanTenure * 12;
+
+    // To prevent division by zero if interest rate is 0
+    if (monthlyRate === 0) return (spaPrice / totalPayments).toFixed(2);
+
+    // Formula: [r * (1 + r)^n] / [(1 + r)^n - 1] * P
+    const numerator = monthlyRate * Math.pow(1 + monthlyRate, totalPayments);
+    const denominator = Math.pow(1 + monthlyRate, totalPayments) - 1;
+    
+    const monthlyInstalment = spaPrice * (numerator / denominator);
+
+    return parseFloat(monthlyInstalment.toFixed(2));
+}

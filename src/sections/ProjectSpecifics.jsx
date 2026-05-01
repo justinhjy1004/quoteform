@@ -44,7 +44,7 @@ const ProjectSpecificsSection = ({ register, watch, setValue, control }) => {
                 </div>
 
                 <div>
-                    <label className="block text-l font-medium">Facing</label>
+                    <label className="block text-l font-medium">Facing / View</label>
                     <input type="text" {...register("project_details.facing")} className="w-full mt-1 p-2 border rounded" />
                 </div>
                 <div>

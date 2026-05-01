@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
-import { useFieldArray, Controller } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import { useFieldArray, Controller, useWatch } from 'react-hook-form';
 import TagInput from './TagInput';
-import { formatNumber, parseNumber, revertToNumeric } from './Helper';
+import { formatNumber, parseNumber, revertToNumeric, getNumeric, calculateMonthlyInstalment } from './Helper';
 
-const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountFields }) => {
+// 1. Added 'control' to the props
+const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountFields, control, setValue }) => {
+  
+  // 2. This "watches" the array for this specific index
+  const watchedDiscounts = useWatch({
+    control,
+    name: `options.${index}.other_discounts`,
+    defaultValue: [],
+  });
+
+  const totalDiscount = (watchedDiscounts || []).reduce((acc, curr) => {
+      // Ensure we have a valid number, default to 0 if empty/NaN
+      const val = Number(curr?.amount) || 0;
+      return acc + val;
+    }, 0);
+  
+
+  useEffect(() => {
+    setValue(`options.${index}.other_discounts_total`, totalDiscount);
+  }, [watchedDiscounts, setValue]);
+
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
@@ -20,7 +40,6 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
       <div className="space-y-2">
         {discountFields.map((item, dIndex) => (
           <div key={item.id} className="flex gap-2 items-center">
-            {/* Type Input */}
             <input 
               type="text" 
               placeholder="Discount Name (e.g., Seasonal)" 
@@ -28,7 +47,6 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
               className="flex-grow p-2 border rounded text-base focus:ring-2 focus:ring-blue-100 outline-none" 
             />
             
-            {/* Percentage Input with '%' Adornment */}
             <div className="relative w-32">
               <input 
                 type="number" 
@@ -36,7 +54,7 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
                 min="0"
                 max="100"
                 placeholder="0.00" 
-                {...register(`options.${index}.other_discounts.${dIndex}.amount`, { valueAsNumber: true })} 
+                {...register(`options.${index}.other_discounts.${dIndex}.percentage`, { valueAsNumber: true })} 
                 onFocus={(e) => e.target.select()} 
                 className="w-full p-2 pr-7 border rounded text-base focus:ring-2 focus:ring-blue-100 outline-none text-right" 
               />
@@ -45,7 +63,6 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
               </span>
             </div>
 
-            {/* Remove Button */}
             <button 
               type="button" 
               onClick={() => removeDiscount(dIndex)} 
@@ -57,6 +74,14 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
           </div>
         ))}
         
+        {/* 4. Display the total at the bottom */}
+        {discountFields.length > 0 && (
+          <div className="flex justify-end items-center pt-2 border-t mt-2">
+            <span className="text-sm text-gray-500 mr-2 font-medium">Total Additional Discount:</span>
+            <span className="text-lg font-bold text-gray-800">{totalDiscount.toFixed(2)}%</span>
+          </div>
+        )}
+
         {discountFields.length === 0 && (
           <p className="text-sm text-gray-400 italic">No extra percentage discounts applied.</p>
         )}
@@ -117,12 +142,97 @@ const FurnishingPackage = ({ register, control, index }) => {
 
 };
 
-const OptionPanel = ({ index, control, register, removeOption }) => {
+const OptionPanel = ({ index, control, register, removeOption, setValue }) => {
   // Nested field array for other discounts
   const { fields: discountFields, append: addDiscount, remove: removeDiscount } = useFieldArray({
     control,
     name: `options.${index}.other_discounts`
   });
+
+
+  const watchedSPA = useWatch({
+    control,
+    name: `project_details.spa_price`,
+    defaultValue: 0,
+  });
+
+  const watchedRebatePercentage = useWatch({
+    control,
+    name: `options.${index}.rebate_percentage`,
+    defaultValue: 0,
+  });
+
+  const watchedRebateAmount = useWatch({
+    control,
+    name: `options.${index}.rebate_amount`,
+    defaultValue: 0,
+  });
+
+  const watchedCashbackAmount = useWatch({
+    control,
+    name: `options.${index}.cashback`,
+    defaultValue: 0,
+  });
+
+  const watchedCashbackType = useWatch({
+    control,
+    name: `options.${index}.cashback_type`,
+    defaultValue: 0,
+  });
+
+  const watchedDownPayment = useWatch({
+    control,
+    name: `options.${index}.down_payment`,
+    defaultValue: 0,
+  });
+
+  const watchedTotalAdditionalDiscount = useWatch({
+    control,
+    name: `options.${index}.other_discounts_total`,
+    defaultValue: 0,
+  });
+
+  const watchedInterestRate = useWatch({
+    control,
+    name: `options.${index}.interest_rate`,
+    defaultValue: 0,
+  });
+
+  const watchedLoanTenure = useWatch({
+    control,
+    name: `options.${index}.loan_tenure_year`,
+    defaultValue: 0,
+  });
+
+  useEffect(() => {
+    const rebateAmount = getNumeric(watchedSPA) * (getNumeric(watchedRebatePercentage) / 100);
+
+    setValue(`options.${index}.rebate_amount`, rebateAmount);
+  }, [watchedSPA, watchedRebatePercentage, setValue]);
+
+  useEffect(() => {
+    
+    let loanAmount = getNumeric(watchedSPA) * (1-(getNumeric(watchedTotalAdditionalDiscount)/100)) - getNumeric(watchedRebateAmount) - getNumeric(watchedDownPayment);
+
+    if (watchedCashbackType === "Offset to Loan") {
+       loanAmount = loanAmount - getNumeric(watchedCashbackAmount);
+    }
+
+    setValue(`options.${index}.loan_amount`, loanAmount);
+  }, [watchedSPA, watchedTotalAdditionalDiscount, watchedRebateAmount, watchedDownPayment, watchedCashbackAmount, watchedCashbackType, setValue]);
+
+  useEffect(() => {
+    
+    const nettPrice = getNumeric(watchedSPA) * (1-(getNumeric(watchedTotalAdditionalDiscount)/100)) - getNumeric(watchedRebateAmount) - getNumeric(watchedCashbackAmount);
+    setValue(`options.${index}.nett_price`, nettPrice);
+  }, [watchedSPA, watchedTotalAdditionalDiscount, watchedRebateAmount, watchedCashbackAmount, setValue]);
+
+  useEffect(() => {
+    
+    const monthlyInstalment = calculateMonthlyInstalment(getNumeric(watchedSPA), getNumeric(watchedInterestRate)/100, getNumeric(watchedLoanTenure));
+
+    setValue(`options.${index}.monthly_instalment`, monthlyInstalment);
+  }, [watchedSPA, watchedInterestRate, watchedLoanTenure, setValue]);
 
   return (
     <div className="option-panel space-y-6 animate-fadeIn">
@@ -147,6 +257,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
           <input
             type="number"
             step="0.01"
+            defaultValue={0}
             {...register(`options.${index}.rebate_percentage`, { valueAsNumber: true })}
             onFocus={(e) => e.target.select()}
             className="w-full mt-1 p-2 border rounded"
@@ -190,11 +301,10 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
           </div>
 
           <div className="flex items-center bg-gray-100 p-1 rounded-lg h-[42px]"> {/* Match height of input approx */}
-            {/* FREE Option */}
             <label className="relative flex-1">
               <input
                 type="radio"
-                value="free"
+                value="Cash Out"
                 {...register(`options.${index}.cashback_type`)} // Adjusted name to match your nesting pattern
                 className="peer sr-only"
               />
@@ -205,11 +315,10 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
               </div>
             </label>
 
-            {/* NOT INCLUDED Option */}
             <label className="relative flex-1">
               <input
                 type="radio"
-                value="not_included"
+                value="Offset to Loan"
                 {...register(`options.${index}.cashback_type`)} // Adjusted name to match your nesting pattern
                 className="peer sr-only"
               />
@@ -223,7 +332,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
       </div>
 
-      <DiscountAdder index={index} addDiscount={addDiscount} register={register} removeDiscount={removeDiscount} discountFields={discountFields} />
+      <DiscountAdder index={index} addDiscount={addDiscount} register={register} removeDiscount={removeDiscount} discountFields={discountFields} control={control} setValue={setValue}/>
 
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
         <div className="md:col-span-2">
@@ -234,6 +343,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
             render={({ field: { value, onChange, onBlur } }) => (
               <input
                 type="text"
+                defaultValue={0}
                 value={formatNumber(value)}
                 onChange={(e) => onChange(parseNumber(e.target.value))}
                 onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
@@ -281,7 +391,7 @@ const OptionPanel = ({ index, control, register, removeOption }) => {
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Interest Rate (%)</label>
-          <input type="number" step="0.1" {...register(`options.${index}.interest_rate`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" step="0.05" {...register(`options.${index}.interest_rate`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
          <div className="md:col-span-2">
           <label className="block text-l font-medium">Loan Tenure (Year)</label>

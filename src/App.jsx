@@ -59,7 +59,7 @@ export default function App() {
           <ProjectSpecificsSection register={register} watch={watch} setValue={setValue} control={control} />
 
           {/* Options Section */}
-          <OptionsSection register={register} control={control} activeTab={activeTab} setActiveTab={setActiveTab} optionFields={optionFields} addOption={addOption} removeOption={removeOption} optionsWatcher={optionsWatcher} />
+          <OptionsSection register={register} control={control} activeTab={activeTab} setActiveTab={setActiveTab} optionFields={optionFields} addOption={addOption} removeOption={removeOption} optionsWatcher={optionsWatcher} setValue={setValue}/>
 
           {/* Legal & Maintenance Fees */}
           <LegalAndMaintenanceSection register={register} control={control} watch={watch} setValue={setValue} />

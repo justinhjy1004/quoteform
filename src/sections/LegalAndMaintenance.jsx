@@ -53,9 +53,6 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
     // 2. Ensure calculateMOT has a fallback so it never returns undefined or NaN
     const calculatedAmount = calculateMOT(price, watchedCitizenship) || 0;
 
-    // Optional: Uncomment this to debug if the hook is firing properly
-    console.log("Price:", price, "Citizenship:", watchedCitizenship, "Calculated MOT:", calculatedAmount);
-
     // 3. Add the options object to setValue to force the UI and form state to sync
     setValue("legal_and_fees.mot", calculatedAmount, {
       shouldValidate: true,
@@ -70,7 +67,7 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div>
-        <label className="block text-l font-medium">Maintenance Fee (PSF)</label>
+        <label className="block text-l font-medium">Maintenance Fee & Sinking Fund (PSF)</label>
         <Controller
           name="legal_and_fees.maintenance_fee_psf"
           control={control}
@@ -88,7 +85,7 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
         />
       </div>
       <div>
-        <label className="block text-l font-medium">Maintenance Fee (Total)</label>
+        <label className="block text-l font-medium">Maintenance Fee & Sinking Fund (Total)</label>
         <Controller
           name="legal_and_fees.maintenance_fee_total"
           control={control}
