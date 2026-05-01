@@ -16,11 +16,7 @@ export function calculateMOT(price, citizenship) {
     Math.max(0, P - 1000000) * 0.04;
 
   if (citizenship === "Non-Malaysian") {
-    // For Non-Malaysians, typically it's a flat 4% or the tiered rate, 
-    // but we'll stick to the provided tiered formula unless it's a flat rate requirement.
-    // Given the previous code had a flat rate placeholder, I'll keep the tiered one for now 
-    // as it's more common for residential properties.
-    return mot;
+    return P * 0.04;
   }
 
   return mot;

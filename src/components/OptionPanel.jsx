@@ -15,7 +15,7 @@ const DiscountAdder = ({ index, addDiscount, register, removeDiscount, discountF
 
   const totalDiscount = (watchedDiscounts || []).reduce((acc, curr) => {
       // Ensure we have a valid number, default to 0 if empty/NaN
-      const val = Number(curr?.amount) || 0;
+      const val = Number(curr?.percentage) || 0;
       return acc + val;
     }, 0);
   
@@ -201,7 +201,13 @@ const OptionPanel = ({ index, control, register, removeOption, setValue }) => {
   const watchedLoanTenure = useWatch({
     control,
     name: `options.${index}.loan_tenure_year`,
-    defaultValue: 0,
+    defaultValue: 30,
+  });
+
+  const watchedLoanAmount = useWatch({
+    control,
+    name: `options.${index}.loan_amount`,
+    defaultValue: 30,
   });
 
   useEffect(() => {
@@ -229,10 +235,10 @@ const OptionPanel = ({ index, control, register, removeOption, setValue }) => {
 
   useEffect(() => {
     
-    const monthlyInstalment = calculateMonthlyInstalment(getNumeric(watchedSPA), getNumeric(watchedInterestRate)/100, getNumeric(watchedLoanTenure));
+    const monthlyInstalment = calculateMonthlyInstalment(getNumeric(watchedLoanAmount), getNumeric(watchedInterestRate)/100, getNumeric(watchedLoanTenure));
 
     setValue(`options.${index}.monthly_instalment`, monthlyInstalment);
-  }, [watchedSPA, watchedInterestRate, watchedLoanTenure, setValue]);
+  }, [watchedLoanAmount, watchedInterestRate, watchedLoanTenure, setValue]);
 
   return (
     <div className="option-panel space-y-6 animate-fadeIn">
@@ -395,7 +401,7 @@ const OptionPanel = ({ index, control, register, removeOption, setValue }) => {
         </div>
          <div className="md:col-span-2">
           <label className="block text-l font-medium">Loan Tenure (Year)</label>
-          <input type="number" step="1" {...register(`options.${index}.loan_tenure_year`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <input type="number" defaultValue={30} step="1" {...register(`options.${index}.loan_tenure_year`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Monthly Instalment</label>

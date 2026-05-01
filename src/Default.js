@@ -63,7 +63,7 @@ export const defaultValues = {
 };
 
 export const layoutData = {
-        "Type A": { area: 850, psf: 0.35 },
-        "Type B": { area: 1000, psf: 0.35 },
-        "Type C": { area: 1200, psf: 0.40 }
+        "Type A 2R1B": { area: 850, psf: 0.35 },
+        "Type B 2+1R2B": { area: 1000, psf: 0.35 },
+        "Type C 3R2B": { area: 1200, psf: 0.40 }
 };
