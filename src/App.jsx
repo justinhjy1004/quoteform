@@ -12,17 +12,33 @@ import ProjectSpecificsSection from './sections/ProjectSpecifics';
 import LegalAndMaintenanceSection from './sections/LegalAndMaintenance';
 import OptionsSection from './sections/Options';
 import GenerateQuoteButton from './sections/GenerateQuotationButton';
+import PasswordModal from './components/PasswordModal';
 
 // --- MAIN APPLICATION ---
 export default function App() {
   const wasmStatus = initWasm()
   const [activeTab, setActiveTab] = useState(0);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [pendingData, setPendingData] = useState(null);
 
   const { onSubmit, outputLog } = useSubmit(wasmStatus);
 
   const { register, control, handleSubmit, watch, setValue } = useForm({
     defaultValues: defaultValues
   });
+
+  const handleBeforeSubmit = (data) => {
+    setPendingData(data);
+    setIsPasswordModalOpen(true);
+  };
+
+  const handlePasswordConfirm = () => {
+    setIsPasswordModalOpen(false);
+    if (pendingData) {
+      onSubmit(pendingData);
+      setPendingData(null);
+    }
+  };
 
   const { fields: optionFields, append: addOption, remove: removeOption } = useFieldArray({
     control,
@@ -48,7 +64,7 @@ export default function App() {
           <h2 className="text-l font-bold text-white">{defaultValues.agent.name}</h2>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} onKeyDown={preventEnterSubmit} className="p-6 space-y-8">
+        <form onSubmit={handleSubmit(handleBeforeSubmit)} onKeyDown={preventEnterSubmit} className="p-6 space-y-8">
 
           {/*<PresetSection register={register} watch={watch} /> */}
 
@@ -69,6 +85,12 @@ export default function App() {
 
         </form>
       </div>
+
+      <PasswordModal 
+        isOpen={isPasswordModalOpen} 
+        onClose={() => setIsPasswordModalOpen(false)} 
+        onConfirm={handlePasswordConfirm} 
+      />
     </div>
   );
 }
