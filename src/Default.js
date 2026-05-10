@@ -42,19 +42,19 @@ export const defaultValues = {
     password_hash: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',
     lead_info: { name: "", contact: "", citizenship: "Malaysian" },
     project_details: {
-        project_name: "Skyline Residences", 
-        developer: "Apex Development Group", 
-        tenure: "Freehold",
+        project_name: "Netizen Residence", 
+        developer: "KEB Group", 
+        tenure: "Leasehold",
         unit_no: "", 
         facing: "", 
-        layout_type: "Type A 2R1B", 
-        area_sqft: 850, 
+        layout_type: "Type A1 1+1B1R", 
+        area_sqft: 540, 
         spa_price: 0, 
         car_park_lot: ""
     },
     legal_and_fees: {
         maintenance_fee_psf: 0.35, 
-        maintenance_fee_total: 297.5, 
+        maintenance_fee_total: 189, 
         included: [], 
         not_included: [],
         spa_legal: "not_included",
@@ -64,9 +64,9 @@ export const defaultValues = {
         loan_stamp_duty: "not_included"
     },
     agent: {
-        name: "Sarah Jenkins", 
+        name: "John", 
         phone_number: "+60123456789", 
-        email: "sarah@apex.com", 
+        email: "John@gmail.com", 
         logo_url: "", 
         signature_url: ""
     },
@@ -74,7 +74,9 @@ export const defaultValues = {
 };
 
 export const layoutData = {
-        "Type A 2R1B": { area: 850, psf: 0.35 },
-        "Type B 2+1R2B": { area: 1000, psf: 0.35 },
-        "Type C 3R2B": { area: 1200, psf: 0.40 }
+        "Type A1 1+1B1R": { area: 540, psf: 0.35 },
+        "Type B2 2B2R": { area: 653, psf: 0.35 },
+        "Type C 2+1B2R": { area: 982, psf: 0.40 },
+        "Type D 3+1B3R": { area: 1319, psf: 0.40 }
+
 };
