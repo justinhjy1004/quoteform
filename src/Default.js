@@ -74,9 +74,18 @@ export const defaultValues = {
 };
 
 export const layoutData = {
-        "Type A1 1+1B1R": { area: 540, psf: 0.35 },
-        "Type B2 2B2R": { area: 653, psf: 0.35 },
-        "Type C 2+1B2R": { area: 982, psf: 0.40 },
-        "Type D 3+1B3R": { area: 1319, psf: 0.40 }
-
+        "E-Type A1 1+1B1R": { area: 540, psf: 0.35 },
+        "E-Type B2 2B2R": { area: 653, psf: 0.35 },
+        "E-Type C 2+1B2R": { area: 982, psf: 0.40 },
+        "E-Type D 3+1B3R": { area: 1319, psf: 0.40 },
+        "====================" : {},
+        "R-Type A 1+1B1R":  { area: 556, psf: 0.33 },
+        "R-Type B 2B2R":  { area: 737, psf: 0.33 },
+        "R-Type C 3B2R":  { area: 858, psf: 0.33 },
+        "R-Type D 3B3R":  { area: 916, psf: 0.33 },
+        "R-Type E 4B3R":  { area: 1019, psf: 0.33 },
+        "=====================" : {},
+        "A-Type B 2B2R":  { area: 775, psf: 0.32 },
+        "A-Type C 3B2R":  { area: 1022, psf: 0.32 },
+        "A-Type D 4B3R":  { area: 1420, psf: 0.32 }
 };
