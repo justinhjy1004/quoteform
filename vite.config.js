@@ -3,9 +3,11 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import wasm from "vite-plugin-wasm";
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), wasm()],
+  plugins: [react(), tailwindcss(), wasm(), cloudflare()],
   server: {
     host: '0.0.0.0', // This tells Vite to listen on the Tailscale interface
     port: 5173,      // Explicitly set the port
