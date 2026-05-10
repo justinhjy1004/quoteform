@@ -36,7 +36,7 @@ const ProjectSpecificsSection = ({ register, watch, setValue, control }) => {
                             handleLayoutChange(e);      // Trigger Population
                         }}
                         className="w-full mt-1 p-2 border rounded"
-                    >                        <option value="">Select Layout Type</option>
+                    >
                         {Object.keys(layoutData).map((type) => (
                             <option key={type} value={type}>{type}</option>
                         ))}

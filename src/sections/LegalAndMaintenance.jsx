@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Controller } from "react-hook-form";
 import TagInput from "../components/TagInput";
 import { calculateMOT, formatNumber, parseNumber, revertToNumeric } from "../components/Helper"
@@ -44,8 +44,9 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
 
   const watchedPrice = watch("project_details.spa_price");
   const watchedCitizenship = watch("lead_info.citizenship");
+  const [isMotManuallyEdited, setIsMotManuallyEdited] = useState(false);
 
-  useEffect(() => {
+  const triggerMOTCalculation = useCallback(() => {
     // 1. Sanitize the price input in case it comes through as a formatted string with commas
     const rawPrice = typeof watchedPrice === 'string' ? watchedPrice.replace(/,/g, '') : watchedPrice;
     const price = parseFloat(rawPrice) || 0;
@@ -60,7 +61,14 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
       shouldTouch: true
     });
     
+    setIsMotManuallyEdited(false);
   }, [watchedPrice, watchedCitizenship, setValue]);
+
+  useEffect(() => {
+    if (!isMotManuallyEdited) {
+      triggerMOTCalculation();
+    }
+  }, [watchedPrice, watchedCitizenship, isMotManuallyEdited, triggerMOTCalculation]);
 
   return (<section>
     <h2 className="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">Legal & Maintenance Fees</h2>
@@ -106,7 +114,16 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
 
     <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-4">
       <div>
-        <label className="block text-l font-medium">MOT Stamp Duty</label>
+        <div className="flex justify-between items-center">
+          <label className="block text-l font-medium">MOT Stamp Duty</label>
+          <button 
+            type="button"
+            onClick={triggerMOTCalculation}
+            className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100 transition-colors font-medium border border-blue-200"
+          >
+            Auto-calculate
+          </button>
+        </div>
         <Controller
           name="legal_and_fees.mot"
           control={control}
@@ -114,7 +131,10 @@ const LegalAndMaintenanceSection = ({ register, watch, setValue, control }) => {
             <input
               type="text"
               value={formatNumber(value)}
-              onChange={(e) => onChange(parseNumber(e.target.value))}
+              onChange={(e) => {
+                setIsMotManuallyEdited(true);
+                onChange(parseNumber(e.target.value));
+              }}
               onBlur={(e) => revertToNumeric(e, onBlur, onChange)}
               onFocus={(e) => e.target.select()}
               className="w-full mt-1 p-2 border rounded"

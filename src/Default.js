@@ -10,13 +10,14 @@ const NumDaysValid = 30;
 
 // 2. Define the small building blocks
 export const defaultOption = {
-    option_name: "New Option",
+    option_name: "",
     rebate: 0, 
     cashback: 0, 
+    cashback_type: "Cash Out",
     down_payment: 0, 
     nett_price: 0, 
     loan_amount: 0, 
-    interest_rate: 0, 
+    interest_rate: 4.0, 
     monthly_instalment: 0,
     other_discounts: [],
     furnishing: {
@@ -44,13 +45,22 @@ export const defaultValues = {
         developer: "Apex Development Group", 
         tenure: "Freehold",
         unit_no: "", 
-        facing: "", layout_type: "", area_sqft: 0, spa_price: 0, car_park_lot: ""
+        facing: "", 
+        layout_type: "Type A 2R1B", 
+        area_sqft: 850, 
+        spa_price: 0, 
+        car_park_lot: ""
     },
     legal_and_fees: {
         maintenance_fee_psf: 0.35, 
-        maintenance_fee_total: 0, 
+        maintenance_fee_total: 297.5, 
         included: [], 
-        not_included: []
+        not_included: [],
+        spa_legal: "not_included",
+        spa_disbursement: "not_included",
+        loan_agreement: "not_included",
+        loan_disbursement: "not_included",
+        loan_stamp_duty: "not_included"
     },
     agent: {
         name: "Sarah Jenkins", 

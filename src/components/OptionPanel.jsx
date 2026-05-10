@@ -253,7 +253,12 @@ const OptionPanel = ({ index, control, register, removeOption, setValue }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div className="md:col-span-4">
           <label className="block text-l font-medium">Option Name</label>
-          <input type="text" {...register(`options.${index}.option_name`)} className="w-full mt-1 p-2 border rounded font-semibold" />
+          <input 
+            type="text" 
+            {...register(`options.${index}.option_name`)} 
+            placeholder={`Option ${index + 1}`}
+            className="w-full mt-1 p-2 border rounded font-semibold" 
+          />
         </div>
       </div>
 
@@ -397,7 +402,22 @@ const OptionPanel = ({ index, control, register, removeOption, setValue }) => {
         </div>
         <div className="md:col-span-2">
           <label className="block text-l font-medium">Interest Rate (%)</label>
-          <input type="number" step="0.05" {...register(`options.${index}.interest_rate`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} className="w-full mt-1 p-2 border rounded" />
+          <input 
+            type="number" 
+            step="0.05" 
+            min="0.05"
+            {...register(`options.${index}.interest_rate`, { 
+              valueAsNumber: true,
+              min: { value: 0.05, message: "Interest rate must be greater than 0" }
+            })} 
+            onFocus={(e) => e.target.select()} 
+            onBlur={(e) => {
+              if (parseFloat(e.target.value) <= 0) {
+                setValue(`options.${index}.interest_rate`, 4.0);
+              }
+            }}
+            className="w-full mt-1 p-2 border rounded" 
+          />
         </div>
          <div className="md:col-span-2">
           <label className="block text-l font-medium">Loan Tenure (Year)</label>
