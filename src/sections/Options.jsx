@@ -9,7 +9,7 @@ const OptionsSection = ( {register, control, activeTab, setActiveTab, optionFiel
               <button 
                 type="button" 
                 onClick={() => {
-                  addOption({ ...defaultOption, option_name: `Option ${optionFields.length + 1}` });
+                  addOption({ ...defaultOption, option_name: "" });
                   setActiveTab(optionFields.length);
                 }} 
                 className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-sm rounded transition"

@@ -10,7 +10,7 @@ const NumDaysValid = 30;
 
 // 2. Define the small building blocks
 export const defaultOption = {
-    option_name: "New Option",
+    option_name: "",
     rebate: 0, 
     cashback: 0, 
     cashback_type: "Cash Out",
@@ -69,7 +69,7 @@ export const defaultValues = {
         logo_url: "", 
         signature_url: ""
     },
-    options: [{ ...defaultOption, option_name: "Option 1" }]
+    options: [{ ...defaultOption, option_name: "" }]
 };
 
 export const layoutData = {

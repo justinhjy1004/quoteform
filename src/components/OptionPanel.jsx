@@ -256,18 +256,7 @@ const OptionPanel = ({ index, control, register, removeOption, setValue }) => {
           <input 
             type="text" 
             {...register(`options.${index}.option_name`)} 
-            onFocus={(e) => {
-              if (/^Option \d+$/.test(e.target.value) || e.target.value === "New Option") {
-                setValue(`options.${index}.option_name`, "");
-              } else {
-                e.target.select();
-              }
-            }}
-            onBlur={(e) => {
-              if (e.target.value.trim() === "") {
-                setValue(`options.${index}.option_name`, `Option ${index + 1}`);
-              }
-            }}
+            placeholder={`Option ${index + 1}`}
             className="w-full mt-1 p-2 border rounded font-semibold" 
           />
         </div>
